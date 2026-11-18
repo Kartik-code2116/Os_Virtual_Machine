@@ -37,6 +37,13 @@ def render_sidebar(active_page: str = "home") -> str:
             key="ks_sidebar_nav_radio",
         )
 
+        st.markdown('<div class="ks-nav-label" style="margin-top:14px;">APPEARANCE</div>', unsafe_allow_html=True)
+        current_is_dark = (st.session_state.get("theme", "dark") == "dark")
+        toggle_val = st.toggle("🌙 Dark Theme", value=current_is_dark, key="ks_sidebar_theme_toggle_switch")
+        if toggle_val != current_is_dark:
+            st.session_state.theme = "dark" if toggle_val else "light"
+            st.rerun()
+
         st.markdown(
             """
             <div class="ks-sidebar-note">

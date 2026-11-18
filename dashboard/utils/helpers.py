@@ -72,34 +72,47 @@ def read_metric(summary_dict: dict, key: str, default: float = 0.0) -> float:
 # Plotly Layout Factory
 # ─────────────────────────────────────────────────────────────────────────────
 
-def plotly_dark_layout(height: int = 300, **overrides) -> dict:
+def plotly_layout(height: int = 300, theme: str = "dark", **overrides) -> dict:
     """
-    Returns a base Plotly update_layout dict styled for the dark KernelSim theme.
-    Pass keyword overrides to customise individual keys.
+    Returns a base Plotly update_layout dict styled for KernelSim.
+    Adapts to 'dark' or 'light' theme.
     """
+    is_dark = (theme == "dark")
+    paper_bg = "#0e1828" if is_dark else "#ffffff"
+    plot_bg  = "#070c16" if is_dark else "#f8fafc"
+    font_col = "#94a3b8" if is_dark else "#475569"
+    grid_col = "#1a2a40" if is_dark else "#e2e8f0"
+
     base = dict(
-        paper_bgcolor="#06101e",
-        plot_bgcolor="#030810",
+        paper_bgcolor=paper_bg,
+        plot_bgcolor=plot_bg,
         height=height,
         margin=dict(l=20, r=20, t=38, b=36),
-        font=dict(family="JetBrains Mono", color="#718096"),
+        font=dict(family="JetBrains Mono", color=font_col),
         xaxis=dict(
             showgrid=True,
-            gridcolor="#1a2740",
+            gridcolor=grid_col,
             gridwidth=1,
-            tickfont=dict(family="JetBrains Mono", color="#718096", size=10),
-            linecolor="#1a2740",
+            tickfont=dict(family="JetBrains Mono", color=font_col, size=10),
+            linecolor=grid_col,
         ),
         yaxis=dict(
             showgrid=True,
-            gridcolor="#1a2740",
+            gridcolor=grid_col,
             gridwidth=1,
-            tickfont=dict(family="JetBrains Mono", color="#718096", size=10),
-            linecolor="#1a2740",
+            tickfont=dict(family="JetBrains Mono", color=font_col, size=10),
+            linecolor=grid_col,
         ),
     )
     base.update(overrides)
     return base
+
+
+def plotly_dark_layout(height: int = 300, **overrides) -> dict:
+    """Backward-compatible alias for plotly_layout."""
+    import streamlit as st
+    current_theme = st.session_state.get("theme", "dark")
+    return plotly_layout(height=height, theme=current_theme, **overrides)
 
 
 # ─────────────────────────────────────────────────────────────────────────────

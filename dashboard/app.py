@@ -40,10 +40,9 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# 2. Inject CSS Stylesheet
-inject_styles()
-
-# 3. Session State Initialization
+# 2. Session State Initialization
+if "theme" not in st.session_state:
+    st.session_state.theme = "dark"
 if "processes" not in st.session_state:
     st.session_state.processes = [p.copy() for p in PRESETS["Standard Mix"]]
 if "nav_selection" not in st.session_state:
@@ -52,6 +51,9 @@ if "pending_navigation" in st.session_state:
     destination = st.session_state.pop("pending_navigation")
     st.session_state.nav_selection = destination
     st.session_state.ks_sidebar_nav_radio = destination
+
+# 3. Inject Theme Stylesheet
+inject_styles(st.session_state.theme)
 
 # 4. Sticky Top Navigation Bar
 render_navbar(st.session_state.nav_selection)
