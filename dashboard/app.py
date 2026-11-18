@@ -42,7 +42,7 @@ st.set_page_config(
 
 # 2. Session State Initialization
 if "theme" not in st.session_state:
-    st.session_state.theme = "dark"
+    st.session_state.theme = "premium"
 if "processes" not in st.session_state:
     st.session_state.processes = [p.copy() for p in PRESETS["Standard Mix"]]
 if "nav_selection" not in st.session_state:

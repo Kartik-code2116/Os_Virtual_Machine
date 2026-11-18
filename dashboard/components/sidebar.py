@@ -1,4 +1,9 @@
-"""Learning-first navigation and a small orientation panel."""
+"""
+sidebar.py
+──────────
+Learning-first navigation and orientation panel.
+Visible on Concepts, Simulator, and Benchmark pages (hidden on Landing page).
+"""
 
 import streamlit as st
 
@@ -12,7 +17,7 @@ def render_sidebar(active_page: str = "home") -> str:
                 <div class="ks-sidebar-logo">K</div>
                 <div>
                     <div class="ks-sidebar-name">Kernel<span>Sim</span></div>
-                    <div class="ks-sidebar-tag">Learn by seeing it happen</div>
+                    <div class="ks-sidebar-tag">OS Kernel & VM Platform</div>
                 </div>
             </div>
             <div class="ks-nav-label">YOUR LEARNING PATH</div>
@@ -21,7 +26,7 @@ def render_sidebar(active_page: str = "home") -> str:
         )
 
         page_names = {
-            "home": "🏡  Start here",
+            "home": "🏡  Start here (Landing)",
             "concepts": "📖  Learn the basics",
             "simulator": "⚙️  Try the simulator",
             "benchmark": "↗️  Compare results",
@@ -37,11 +42,18 @@ def render_sidebar(active_page: str = "home") -> str:
             key="ks_sidebar_nav_radio",
         )
 
-        st.markdown('<div class="ks-nav-label" style="margin-top:14px;">APPEARANCE</div>', unsafe_allow_html=True)
-        current_is_dark = (st.session_state.get("theme", "dark") == "dark")
-        toggle_val = st.toggle("🌙 Dark Theme", value=current_is_dark, key="ks_sidebar_theme_toggle_switch")
-        if toggle_val != current_is_dark:
-            st.session_state.theme = "dark" if toggle_val else "light"
+        # Prominent Theme Toggle in the Sidebar
+        st.markdown('<div class="ks-nav-label" style="margin-top:16px;">THEME / APPEARANCE</div>', unsafe_allow_html=True)
+        current_theme = st.session_state.get("theme", "premium")
+        if current_theme == "premium":
+            side_btn_label = "🌙 Switch to Dark Mode"
+            side_btn_help = "Switch to Deep Dark Cyber Theme"
+        else:
+            side_btn_label = "🌿 Switch to Premium Theme"
+            side_btn_help = "Switch to Soft Sage Premium Theme"
+
+        if st.button(side_btn_label, key="ks_sidebar_theme_toggle_btn", help=side_btn_help, use_container_width=True):
+            st.session_state.theme = "dark" if current_theme == "premium" else "premium"
             st.rerun()
 
         st.markdown(
@@ -50,13 +62,13 @@ def render_sidebar(active_page: str = "home") -> str:
                 <div class="ks-sidebar-note-icon">✦</div>
                 <div class="ks-sidebar-info-title">A good place to begin</div>
                 <div class="ks-sidebar-info-body">
-                    Start with a short concept, then open the simulator and change one thing at a time.
-                    There is no account or setup to complete.
+                    Start with a short concept, then open the simulator and change one parameter at a time.
+                    The native C++ engine executes deterministically.
                 </div>
             </div>
             <div class="ks-sidebar-engine">
                 <span class="ks-sidebar-engine-dot"></span>
-                <span><b>Learning lab</b><br>Powered by a native C++ engine</span>
+                <span><b>Engine Status</b><br>Powered by native C++17 x64</span>
             </div>
             """,
             unsafe_allow_html=True,

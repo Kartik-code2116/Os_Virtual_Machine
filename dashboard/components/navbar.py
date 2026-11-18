@@ -1,4 +1,14 @@
-"""Top navigation bar for the KernelSim learning workspace with theme toggle."""
+"""
+navbar.py
+─────────
+Top navigation header for KernelSim.
+Displays:
+- KernelSim Brand Logo & Subtitle
+- Active Section Indicator
+- C++ Engine Status Pill
+- Direct, Reliable Theme Toggle Button
+- Quick Navigation Bar on the Landing Page
+"""
 
 import streamlit as st
 
@@ -13,11 +23,10 @@ PAGE_LABELS = {
 
 def render_navbar(active_page: str = "home") -> None:
     label, description = PAGE_LABELS.get(active_page, PAGE_LABELS["home"])
-    current_theme = st.session_state.get("theme", "dark")
-    is_dark = (current_theme == "dark")
+    current_theme = st.session_state.get("theme", "premium")
 
-    # Top brand bar with interactive theme toggle
-    c_brand, c_status, c_toggle = st.columns([2.2, 1.4, 0.9], vertical_alignment="center")
+    # Top brand bar with direct interactive theme toggle button
+    c_brand, c_status, c_toggle = st.columns([2.3, 1.2, 1.1], vertical_alignment="center")
 
     with c_brand:
         st.markdown(
@@ -26,7 +35,7 @@ def render_navbar(active_page: str = "home") -> None:
                 <div class="ks-topnav-logo">K</div>
                 <div>
                     <div class="ks-topnav-name">Kernel<span>Sim</span></div>
-                    <div class="ks-topnav-caption">OPEN LEARNING LAB</div>
+                    <div class="ks-topnav-caption">OS KERNEL & VM HYPERVISOR</div>
                 </div>
                 <div class="ks-topnav-context">
                     <span class="ks-topnav-kicker">{label}</span>
@@ -47,16 +56,21 @@ def render_navbar(active_page: str = "home") -> None:
         )
 
     with c_toggle:
-        toggle_label = "☀️ Light" if is_dark else "🌙 Dark"
-        toggle_help = "Switch to Light Theme" if is_dark else "Switch to Dark Theme"
-        if st.button(toggle_label, key="ks_global_theme_toggle", help=toggle_help, use_container_width=True):
-            st.session_state.theme = "light" if is_dark else "dark"
+        if current_theme == "premium":
+            btn_label = "🌙 Dark Mode"
+            btn_help = "Switch to Deep Dark Cyber Theme"
+        else:
+            btn_label = "🌿 Premium Sage"
+            btn_help = "Switch to Premium Soft Sage Theme"
+
+        if st.button(btn_label, key="ks_global_theme_toggle_btn", help=btn_help, use_container_width=True):
+            st.session_state.theme = "dark" if current_theme == "premium" else "premium"
             st.rerun()
 
     # On the landing page, display quick jump buttons since the sidebar is hidden
     if active_page == "home":
-        st.markdown('<div style="height: 6px;"></div>', unsafe_allow_html=True)
-        _, q1, q2, q3, _ = st.columns([1.5, 1, 1, 1, 1.5], gap="small")
+        st.markdown('<div style="height: 10px;"></div>', unsafe_allow_html=True)
+        _, q1, q2, q3, _ = st.columns([1.5, 1.2, 1.2, 1.2, 1.5], gap="small")
         with q1:
             if st.button("📖 OS Concepts", key="top_nav_concepts", use_container_width=True):
                 st.session_state.pending_navigation = "concepts"
@@ -69,4 +83,4 @@ def render_navbar(active_page: str = "home") -> None:
             if st.button("↗️ Benchmark", key="top_nav_benchmark", use_container_width=True):
                 st.session_state.pending_navigation = "benchmark"
                 st.rerun()
-        st.markdown('<div style="height: 12px;"></div>', unsafe_allow_html=True)
+        st.markdown('<div style="height: 14px;"></div>', unsafe_allow_html=True)

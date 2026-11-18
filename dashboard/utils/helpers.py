@@ -72,16 +72,16 @@ def read_metric(summary_dict: dict, key: str, default: float = 0.0) -> float:
 # Plotly Layout Factory
 # ─────────────────────────────────────────────────────────────────────────────
 
-def plotly_layout(height: int = 300, theme: str = "dark", **overrides) -> dict:
+def plotly_layout(height: int = 300, theme: str = "premium", **overrides) -> dict:
     """
     Returns a base Plotly update_layout dict styled for KernelSim.
-    Adapts to 'dark' or 'light' theme.
+    Adapts to 'premium' (default sage) or 'dark' theme.
     """
-    is_dark = (theme == "dark")
-    paper_bg = "#0e1828" if is_dark else "#ffffff"
-    plot_bg  = "#070c16" if is_dark else "#f8fafc"
-    font_col = "#94a3b8" if is_dark else "#475569"
-    grid_col = "#1a2a40" if is_dark else "#e2e8f0"
+    is_premium = (theme == "premium")
+    paper_bg = "#1a2721" if is_premium else "#0b121f"
+    plot_bg  = "#111a15" if is_premium else "#050912"
+    font_col = "#a4b0a7" if is_premium else "#8899ac"
+    grid_col = "#29382f" if is_premium else "#172338"
 
     base = dict(
         paper_bgcolor=paper_bg,
@@ -111,7 +111,7 @@ def plotly_layout(height: int = 300, theme: str = "dark", **overrides) -> dict:
 def plotly_dark_layout(height: int = 300, **overrides) -> dict:
     """Backward-compatible alias for plotly_layout."""
     import streamlit as st
-    current_theme = st.session_state.get("theme", "dark")
+    current_theme = st.session_state.get("theme", "premium")
     return plotly_layout(height=height, theme=current_theme, **overrides)
 
 
