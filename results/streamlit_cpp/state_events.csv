@@ -6,12 +6,20 @@ Time,PID,Previous State,New State
 1,2,Waiting for Memory,Ready
 2,3,New,Waiting for Memory
 2,3,Waiting for Memory,Ready
+2,1,Running,Ready
+2,2,Ready,Running
 4,4,New,Waiting for Memory
-5,1,Running,Terminated
-5,4,Waiting for Memory,Ready
-5,2,Ready,Running
-8,2,Running,Terminated
-8,3,Ready,Running
-12,3,Running,Terminated
+4,2,Running,Ready
+4,3,Ready,Running
+6,3,Running,Ready
+6,1,Ready,Running
+8,1,Running,Ready
+8,2,Ready,Running
+9,2,Running,Terminated
+9,4,Waiting for Memory,Ready
+9,3,Ready,Running
+11,3,Running,Terminated
+11,1,Ready,Running
+12,1,Running,Terminated
 12,4,Ready,Running
 14,4,Running,Terminated
