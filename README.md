@@ -83,7 +83,7 @@ flowchart TD
     UI["Streamlit Dashboard (dashboard/app.py)"] -->|User Inputs & Process Config| PyBridge["Python Backend Bridge (dashboard/cpp_backend.py)"]
     PyBridge -->|Writes data/processes.csv| CSVInput["Input CSV (data/processes.csv)"]
     PyBridge -->|Spawns with args: algo, quantum, RAM| CppEngine["C++ Simulation Engine (vm_engine.exe)"]
-    CSVInput --> CppEngine
+    CSVInput --> CppEnginle
     CppEngine -->|Runs Simulation & Generates| Results["results/streamlit_cpp/"]
     Results -->|process_results.csv, timeline.csv, events...| PyBridge
     PyBridge -->|DataFrames & Summaries| UI

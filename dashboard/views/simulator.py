@@ -54,11 +54,11 @@ def render_simulator_page():
         hide_index=True,
         key="ks_process_editor",
         column_config={
-            "PID": st.column_config.NumberColumn("PID", min_value=1, step=1, help="Process ID"),
-            "Arrival": st.column_config.NumberColumn("Arrival Tick", min_value=0, step=1, help="Simulation arrival clock"),
-            "Burst": st.column_config.NumberColumn("Burst (Ticks)", min_value=1, step=1, help="CPU cycles requested"),
-            "Priority": st.column_config.NumberColumn("Priority Rank", min_value=1, step=1, help="Lower value = higher priority"),
-            "Memory": st.column_config.NumberColumn("RAM (MB)", min_value=1, step=1, help="Continuous memory footprint"),
+            "PID": st.column_config.NumberColumn("PID", min_value=1, step=1, alignment="center", help="Process ID"),
+            "Arrival": st.column_config.NumberColumn("Arrival Tick", min_value=0, step=1, alignment="center", help="Simulation arrival clock"),
+            "Burst": st.column_config.NumberColumn("Burst (Ticks)", min_value=1, step=1, alignment="center", help="CPU cycles requested"),
+            "Priority": st.column_config.NumberColumn("Priority Rank", min_value=1, step=1, alignment="center", help="Lower value = higher priority"),
+            "Memory": st.column_config.NumberColumn("RAM (MB)", min_value=1, step=1, alignment="center", help="Continuous memory footprint"),
         },
     )
     st.session_state.processes = edited_df.to_dict("records")
@@ -429,6 +429,24 @@ def render_simulator_page():
                 ]],
                 use_container_width=True,
                 hide_index=True,
+                column_config={
+                    "PID": st.column_config.NumberColumn("PID", alignment="center"),
+                    "State": st.column_config.TextColumn("State", alignment="center"),
+                    "Priority": st.column_config.NumberColumn("Priority", alignment="center"),
+                    "Arrival": st.column_config.NumberColumn("Arrival", alignment="center"),
+                    "Admission Time": st.column_config.NumberColumn("Admission Time", alignment="center"),
+                    "Memory Wait": st.column_config.NumberColumn("Memory Wait", alignment="center"),
+                    "Burst": st.column_config.NumberColumn("Burst", alignment="center"),
+                    "First Start": st.column_config.NumberColumn("First Start", alignment="center"),
+                    "Completion": st.column_config.NumberColumn("Completion", alignment="center"),
+                    "Turnaround": st.column_config.NumberColumn("Turnaround", alignment="center"),
+                    "Waiting": st.column_config.NumberColumn("Waiting", alignment="center"),
+                    "PC": st.column_config.TextColumn("PC", alignment="center"),
+                    "Registers": st.column_config.TextColumn("Registers", alignment="center"),
+                    "Execution Slices": st.column_config.NumberColumn("Execution Slices", alignment="center"),
+                    "Context Switches": st.column_config.NumberColumn("Context Switches", alignment="center"),
+                    "Memory (MB)": st.column_config.NumberColumn("Memory (MB)", alignment="center"),
+                },
             )
 
         with tabs[3]:
